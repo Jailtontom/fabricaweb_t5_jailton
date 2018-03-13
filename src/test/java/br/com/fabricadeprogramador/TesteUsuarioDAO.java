@@ -1,12 +1,14 @@
 package br.com.fabricadeprogramador;
 
+import java.util.List;
+
 import br.com.fabricadeprogramador.persistencia.entidade.Usuario;
 import br.com.fabricadeprogramador.persistencia.jdbc.UsuarioDAO;
 
 public class TesteUsuarioDAO {
 
 	public static void main(String[] args) {
-		testeexcluir();
+		testeAltenticar();
 	}
 	
 	public static void testecadastrar () {
@@ -48,5 +50,42 @@ public class TesteUsuarioDAO {
 		usuDAO.excluir(usu);
 				
 		System.out.println("Excluído com sucesso");
+	}
+	
+	public static void testesalvar () {
+		Usuario usu = new Usuario();
+		//usu.setId(1);
+		usu.setNome("Vimerson");
+		usu.setLogin("vim");
+		usu.setSenha("123");
+				
+		UsuarioDAO usuDAO = new UsuarioDAO();
+		usuDAO.salvar(usu);
+				
+		System.out.println("Salvo com sucesso");
+	}
+	
+	public static void testeBuscarPorId () {
+		UsuarioDAO usuDAO = new UsuarioDAO();
+		Usuario usu = usuDAO.buscaPorId(3);
+		System.out.println(usu);
+	}
+	
+	public static void testeBuscarTodos () {
+		UsuarioDAO usuDAO = new UsuarioDAO();
+		List<Usuario> lista = usuDAO.buscaTodos();
+		for	(Usuario u : lista) {
+			System.out.println(u);
+		}
+	}
+	
+	public static void testeAltenticar () {
+		UsuarioDAO usuDAO = new UsuarioDAO();
+		Usuario usu = new Usuario();
+		usu.setLogin("jao");
+		usu.setSenha("123");
+		
+		Usuario usuRetorno = usuDAO.autenticar(usu);
+		System.out.println(usuRetorno);
 	}
 }
